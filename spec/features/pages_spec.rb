@@ -13,12 +13,10 @@ RSpec.describe do
     expect(page).to have_content 'https://elpassion.slack.com - short url added'
   end
 
-  xit 'give back shorted url' do
-    visit '/'
-    fill_in('url', with: 'https://elpassion.slack.com')
-    click_button 'Submit'
-    expect(page).to have_content 'elpassion'
-    click_link 'elpassion'
-    expect(current_url).to eq('https://elpassion.slack.com/')
+  it 'give back shorted url' do
+    url = Url.create(original: 'http://google.pl/')
+
+    visit "/#{url.short}"
+    expect(current_url).to eq('http://google.pl/')
   end
 end

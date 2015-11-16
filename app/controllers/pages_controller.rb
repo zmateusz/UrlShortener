@@ -5,10 +5,11 @@ class PagesController < ApplicationController
       @url = find_url || Url.create(short: @short, original: params[:url])
       @short = @url.short
     end
+  end
 
-    if params[:i] && !params[:i].empty?
-      redirect_to @url.original if identify_url
-    end
+  def redirect
+    @url = identify_url
+    redirect_to @url ? @url.original : root_path
   end
 
   def list
@@ -22,6 +23,6 @@ class PagesController < ApplicationController
   end
 
   def identify_url
-    @url = Url.where(short: params[:i]).first
+    Url.where(short: params[:url]).first
   end
 end

@@ -1,7 +1,21 @@
 class Url < ActiveRecord::Base
-  before_save :generate_short
+  include UrlShort
 
-  def generate_short
-    self.short = (0...6).map { (65 + rand(26)).chr }.join
+  before_save :set_short_url
+
+  def set_short_url
+    5.times do
+      short = generate_short
+      found = self.class.find_by_short short
+      unless found
+        self.short = short
+        return
+      end
+    end
+    raise ShortGenerateError, "can't generate short url"
   end
+end
+
+class ShortGenerateError < StandardError
+
 end
