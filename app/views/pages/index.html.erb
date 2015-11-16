@@ -6,7 +6,7 @@
     <div class="alert alert-dismissible alert-success">
       <button type="button" class="close" data-dismiss="alert">x</button>
       <%= params[:url] %><strong> - short url added</strong><br>
-      <%= @short %>
+      <input class="form-control" id="short_url" value="<%= "#{root_url}?i=#{@short}" %>" type="text" name="short_url" onClick="this.setSelectionRange(0, this.value.length)">
     </div>
   <% end %>
   

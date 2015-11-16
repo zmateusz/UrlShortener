@@ -14,7 +14,7 @@ RSpec.describe do
   end
 
   xit 'give back shorted url' do
-    visit '/short'
+    visit '/'
     fill_in('url', with: 'https://elpassion.slack.com')
     click_button 'Submit'
     expect(page).to have_content 'elpassion'
